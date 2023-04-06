@@ -2,6 +2,7 @@ import { format } from "util";
 import { idBancos } from "./bancos";
 import { mod10, mod11 } from "./checkSum";
 import dayjs, { Dayjs } from "dayjs"
+import { nwEncode } from "./barcodeItf";
 
 // 9 - Real
 // 0 - outras moedas
@@ -99,5 +100,9 @@ export abstract class boleto{
 		else{
 			return linha.join("");
 		}
+	}
+
+	nwString(): string{
+		return nwEncode(this.linhaDigitavel(false).split("").map(char => Number(char))) ?? "";
 	}
 };
